@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\DB;
 
 class OrganController extends Controller
 {
-    protected $root;
+    // protected $root;
 
-    public function __construct()
-    {
-        $this->middleware('role:Root')->only([
-            'store',
-            'show',
-            'update',
-        ]);
-        $this->root = empty(auth()->id()) ? null : User::where('id', auth()->id())->firstOrFail();
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('role:Root')->only([
+    //         'store',
+    //         'show',
+    //         'update',
+    //     ]);
+    //     $this->root = empty(auth()->id()) ? null : User::where('id', auth()->id())->firstOrFail();
+    // }
     public function index()
     {
         //
@@ -30,12 +30,11 @@ class OrganController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             DB::commit();
 
         } catch (\Throwable $th) {
             DB::rollBack();
-
             return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
         }
     }
