@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class SubObjective extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name'
     ];
-    public function text()
-    {
-        return $this->belongsTo(Text::class);
+
+    public function objective(){
+        return $this->belongsTo(Objective::class);
+    }
+
+    public function textdescription(){
+        return $this->belongsTo(TextDescription::class);
     }
 }

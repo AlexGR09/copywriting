@@ -21,6 +21,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
+        'last_name_second',
         'email',
         'password',
     ];
@@ -66,5 +68,9 @@ class User extends Authenticatable
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function writer(){
+        return $this->hasOne(Writer::class);
     }
 }

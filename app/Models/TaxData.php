@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Objetive extends Model
+class TaxData extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'curp',
+        'rfc',
+        'tax_data',
+        'address',
+        'doctor_id',
     ];
 
-    public function subObjetive(){
-        return $this->hasMany('App\Models\SubObjetive');
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
     }
 }

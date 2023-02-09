@@ -22,5 +22,6 @@ $this->catalogs = 'App\\Http\\Controllers\\API\\V1\\Catalogs\\';
 }); */
 
 Route::controller($this->catalogs.OrganController::class)->group(function () {
+    Route::post('/organs','store');
     Route::get('/organs', 'show');
 });

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sub_objetives', function (Blueprint $table) {
+        Schema::create('designers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('objetive_id')->constrained('objetives');
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_objetives');
+        Schema::dropIfExists('designers');
     }
 };

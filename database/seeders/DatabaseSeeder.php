@@ -18,14 +18,16 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UsersSeeder::class);
+        $this->call(WritersSeeder::class);
+        $this->call(DesignersSeeder::class);
         //SEEDER DE CATALOGOS
         $this->call(SpecialtiesSeeder::class);
         $this->call(CountriesSeeder::class);
         $this->call(StatesSeeder::class);
         $this->call(CitiesSeeder::class);
         $this->call(CategoriesSeeder::class);
-        $this->call(ObjetivesSeeder::class);
-        $this->call(SubObjetivesSeeder::class);
+        $this->call(ObjectivesSeeder::class);
+        $this->call(SubObjectivesSeeder::class);
         $this->call(TargetsSeeder::class);
         $this->call(ThematicsSeeder::class);
         $this->call(DiseasesSeeder::class);

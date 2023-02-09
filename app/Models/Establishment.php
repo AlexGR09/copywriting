@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class Establishment extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory,SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'address',
+        'schedule',
+        'doctor_id'
     ];
-    public function text()
-    {
-        return $this->belongsTo(Text::class);
+
+    public function doctor(){
+        return $this->belongsTo(Doctor::class);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ObjetivesSeeder extends Seeder
+class ObjectivesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class ObjetivesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('objetives')->insert([
+        DB::table('objectives')->insert([
             [
                 'name' => 'Conoce a tu especialista'
             ],
