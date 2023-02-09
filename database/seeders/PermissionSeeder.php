@@ -32,6 +32,12 @@ class PermissionSeeder extends Seeder
             ['name' => 'show team', 'guard_name' => 'jwt'],
             ['name' => 'update team', 'guard_name' => 'jwt'],
             ['name' => 'delete team', 'guard_name' => 'jwt'],
+
+            //Writer
+            ['name' => 'create text', 'guard_name' => 'jwt'],
+            ['name' => 'show text', 'guard_name' => 'jwt'],
+            ['name' => 'update text', 'guard_name' => 'jwt'],
+            ['name' => 'delete text', 'guard_name' => 'jwt'],
         ]);
     }
 }

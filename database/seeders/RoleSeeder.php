@@ -25,20 +25,39 @@ class RoleSeeder extends Seeder
             [
                 'name' => 'Administrator',
                 'guard_name' => 'jwt',
-            ]
+            ],
+            [
+                'name' => 'Writer',
+                'guard_name' => 'jwt',
+            ],
+            [
+                'name' => 'Designer',
+                'guard_name' => 'jwt',
+            ],
         ]);
-        //SE LE ASIGNA LOS PERMISOS AL USUARIO ROOT
-        Role::findByName('Root')->givePermissionTo(Permission::all());
-        //SE LE ASIGNA LOS PERMISOS AL ROL DE ADMINISTRADOR
-        Role::findByName('Administrator')->givePermissionTo([
-            'create user',
-            'show user',
-            'update user',
-            'delete user',
-            'create team',
-            'show team',
-            'update team',
-            'delete team',
-        ]);
+        //SE LE ASIGNA PERMISOS A LOS ROLES DE USUARIOS
+
+        //USUARIO ROOT
+        //Role::findByName('Root')->givePermissionTo(Permission::all());
+
+        //ADMINISTRADOR
+        // Role::findByName('Administrator')->givePermissionTo([
+        //     'create user',
+        //     'show user',
+        //     'update user',
+        //     'delete user',
+        //     'create team',
+        //     'show team',
+        //     'update team',
+        //     'delete team',
+        // ]);
+
+        //WRITER/REDACTOR
+        //Role::findByName('Administrator')->givePermissionTo([
+            //     'create text',
+            //     'show text',
+            //     'update text',
+            //     'delete text',
+            // ]);
     }
 }
