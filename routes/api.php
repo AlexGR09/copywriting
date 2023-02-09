@@ -13,7 +13,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+global $catalog;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+$this->catalogs = 'App\\Http\\Controllers\\API\\V1\\Catalogs\\';
+
+/* Route::middleware('auth:jwt')->get('/user', function (Request $request) {
     return $request->user();
+}); */
+
+Route::controller($this->catalogs.OrganController::class)->group(function () {
+    Route::get('/organs', 'show');
 });

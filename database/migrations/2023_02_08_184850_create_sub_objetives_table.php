@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('objetive_id')->constrained('objetives');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

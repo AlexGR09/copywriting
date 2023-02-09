@@ -38,26 +38,26 @@ class RoleSeeder extends Seeder
         //SE LE ASIGNA PERMISOS A LOS ROLES DE USUARIOS
 
         //USUARIO ROOT
-        //Role::findByName('Root')->givePermissionTo(Permission::all());
+        Role::findByName('Root')->givePermissionTo(Permission::all());
 
         //ADMINISTRADOR
-        // Role::findByName('Administrator')->givePermissionTo([
-        //     'create user',
-        //     'show user',
-        //     'update user',
-        //     'delete user',
-        //     'create team',
-        //     'show team',
-        //     'update team',
-        //     'delete team',
-        // ]);
+        Role::findByName('Administrator')->givePermissionTo([
+            'create user',
+            'show user',
+            'update user',
+            'delete user',
+            'create team',
+            'show team',
+            'update team',
+            'delete team',
+        ]);
 
         //WRITER/REDACTOR
-        //Role::findByName('Administrator')->givePermissionTo([
-            //     'create text',
-            //     'show text',
-            //     'update text',
-            //     'delete text',
-            // ]);
+        Role::findByName('Administrator')->givePermissionTo([
+                'create text',
+                'show text',
+                'update text',
+                'delete text',
+            ]);
     }
 }
