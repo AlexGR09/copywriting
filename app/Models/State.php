@@ -11,7 +11,9 @@ class State extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name','country_id',
+        'name',
+        'short_name',
+        'country_id',
     ];
 
     public function country()

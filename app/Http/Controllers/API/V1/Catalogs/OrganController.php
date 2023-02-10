@@ -3,41 +3,26 @@
 namespace App\Http\Controllers\API\V1\Catalogs;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\V1\Catalogs\OrgansRequest;
-use App\Http\Resources\API\V1\Catalogs\OrgansResource;
+use App\Http\Requests\API\V1\Catalogs\Organ\OrganRequest;
+use App\Http\Resources\API\V1\Catalogs\Organ\OrganResource;
 use App\Models\Organ;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrganController extends Controller
 {
-    // protected $root;
-
-    // public function __construct()
-    // {
-    //     $this->middleware('role:Root')->only([
-    //         'store',
-    //         'show',
-    //         'update',
-    //     ]);
-    //     $this->root = empty(auth()->id()) ? null : User::where('id', auth()->id())->firstOrFail();
-    // }
     public function index()
     {
-        //
+        $organs = Organ::all();
+        return (OrganResource::collection($organs))->additional(['message' => 'Organos encontrados']);
     }
 
-    public function store(OrgansRequest $request)
+    public function store(OrganRequest $request)
     {
         try {
             DB::beginTransaction();
-            //$organs = Organ::create([$request->validated()]);
-            $organs = Organ::create([
-                $request
-            ]);
+            $organs = Organ::create($request->validated());
             DB::commit();
-            return (new OrgansResource($organs));
+            return (new OrganResource($organs))->additional(['message' => 'Registro agregado correctamente']);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
@@ -46,18 +31,17 @@ class OrganController extends Controller
 
     public function show()
     {
-        $organs = Organ::all();
-        return OrgansResource::collection($organs);
+        //
     }
 
-    public function update(OrgansRequest $request, $id)
+    public function update(OrganRequest $request, $id)
     {
         try {
             DB::beginTransaction();
             $organs = Organ::where('id', $id)->firstOrFail();
-            $organs->name = $request->name;
+            $organs->update($request->validated());
             DB::commit();
-            return (new OrgansResource($organs));
+            return (new OrganResource($organs))->additional(['message' => 'Registro actualizado correctamente']);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
@@ -66,6 +50,15 @@ class OrganController extends Controller
 
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $organs = Organ::where('id', $id)->firstOrFail();
+            $organs->delete();
+            DB::commit();
+            return (new OrganResource($organs))->additional(['message' => 'Registro eliminado correctamente']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
+        }
     }
 }

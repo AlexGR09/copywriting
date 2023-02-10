@@ -3,83 +3,62 @@
 namespace App\Http\Controllers\API\V1\Catalogs;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\API\V1\Catalogs\Thematic\ThematicRequest;
+use App\Http\Resources\API\V1\Catalogs\Thematic\ThematicResource;
+use App\Models\Thematic;
+use Illuminate\Support\Facades\DB;
 
 class ThematicController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $thematics = Thematic::all();
+        return (ThematicResource::collection($thematics))->additional(['message' => 'Tematicas encontradas']);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(ThematicRequest $request)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $thematic = Thematic::create($request->validated());
+            DB::commit();
+            return (new ThematicResource($thematic))->additional(['message' => 'Tematica agregada correctamente']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function update(ThematicRequest $request, $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $thematic = Thematic::where('id', $id)->firstOrFail();
+            $thematic->update($request->validated());
+            DB::commit();
+            return (new ThematicResource($thematic))->additional(['message' => 'Tematica actualizado correctamente']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        try {
+            DB::beginTransaction();
+            $thematic = Thematic::where('id', $id)->firstOrFail();
+            $thematic->delete();
+            DB::commit();
+            return (new ThematicResource($thematic))->additional(['message' => 'Tematica eliminado correctamente']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['Petición incorrecta' => $th->getMessage()], 400);
+        }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\API\V1\Catalogs;
+namespace App\Http\Resources\API\V1\Catalogs\Disease;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrgansResource extends JsonResource
+class DiseaseResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

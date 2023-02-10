@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\API\V1\Catalogs;
+namespace App\Http\Requests\API\V1\Catalogs\City;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrgansRequest extends FormRequest
+class CityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class OrgansRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class OrgansRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name'=>'required|string',
+            'state_id'=>'required|integer',
         ];
     }
 }

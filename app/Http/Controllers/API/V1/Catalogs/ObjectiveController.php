@@ -3,26 +3,26 @@
 namespace App\Http\Controllers\API\V1\Catalogs;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\API\V1\Catalogs\Disease\DiseaseRequest;
-use App\Http\Resources\API\V1\Catalogs\Disease\DiseaseResource;
-use App\Models\Disease;
+use App\Http\Requests\API\V1\Catalogs\Objective\ObjectiveRequest;
+use App\Http\Resources\API\V1\Catalogs\Objective\ObjectiveResource;
+use App\Models\Objective;
 use Illuminate\Support\Facades\DB;
 
-class DiseaseController extends Controller
+class ObjectiveController extends Controller
 {
     public function index()
     {
-        $diseases = Disease::all();
-        return (DiseaseResource::collection($diseases))->additional(['message' => 'Enfermedades encontradas']);
+        $objectives = Objective::all();
+        return (ObjectiveResource::collection($objectives))->additional(['message' => 'Objetivos encontrados']);
     }
 
-    public function store(DiseaseRequest $request)
+    public function store(ObjectiveRequest $request)
     {
         try {
             DB::beginTransaction();
-            $disease = Disease::create($request->validated());
+            $disease = Objective::create($request->validated());
             DB::commit();
-            return (new DiseaseResource($disease))->additional(['message' => 'Enfermedad agregada correctamente']);
+            return (new ObjectiveResource($disease))->additional(['message' => 'Obejetivo agregado correctamente']);
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json(['error' => $th->getMessage()], 503);
@@ -34,14 +34,14 @@ class DiseaseController extends Controller
         //
     }
 
-    public function update(DiseaseRequest $request, $id)
+    public function update(ObjectiveRequest $request, $id)
     {
         try {
             DB::beginTransaction();
-            $disease = Disease::where('id', $id)->firstOrFail();
+            $disease = Objective::where('id', $id)->firstOrFail();
             $disease->update($request->validated());
             DB::commit();
-            return (new DiseaseResource($disease))->additional(['message' => 'Enfermedad actualizada correctamente']);
+            return (new ObjectiveResource($disease))->additional(['message' => 'Obejetivo actualizado correctamente']);
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json(['error' => $th->getMessage()], 503);
@@ -52,10 +52,10 @@ class DiseaseController extends Controller
     {
         try {
             DB::beginTransaction();
-            $disease = Disease::where('id', $id)->firstOrFail();
+            $disease = Objective::where('id', $id)->firstOrFail();
             $disease->delete();
             DB::commit();
-            return (new DiseaseResource($disease))->additional(['message' => 'Enfermedad eliminada correctamente']);
+            return (new ObjectiveResource($disease))->additional(['message' => 'Obejetivo eliminado correctamente']);
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json(['error' => $th->getMessage()], 503);

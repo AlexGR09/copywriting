@@ -11,7 +11,7 @@ class SubObjective extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'name','objective_id'
     ];
 
     public function objective(){
