@@ -8,17 +8,19 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DiseasesHasSpecialties extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'disease_id',
         'specialty_id'
     ];
 
-    public function diseases(){
+    /* public function diseases()
+    {
         return $this->belongsToMany(Disease::class);
     }
-    public function specialties(){
+    public function specialties()
+    {
         return $this->belongsToMany(Specialty::class);
-    }
+    } */
 }

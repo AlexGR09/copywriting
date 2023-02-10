@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\DiseasesHasSpecialties;
 use Illuminate\Database\Seeder;
 use League\CommonMark\Util\SpecReader;
 
@@ -34,5 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ServicesSeeder::class);
         $this->call(SymptomsSeeder::class);
         $this->call(OrgansSeeder::class);
+        //SEEDER DE CATALOGOS MUCHOS A MUCHOS
+        //$this->call(DiseasesHasSpecialtiesSeeder::class);
+        //$this->call(ServicesHasSpecialtiesSeeder::class);
     }
 }
