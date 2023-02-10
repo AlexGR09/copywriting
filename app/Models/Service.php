@@ -13,4 +13,8 @@ class Service extends Model
     protected $fillable = [
         'name'
     ];
+    public function servicesspecialties()
+    {
+        return $this->belongsToMany(ServicesHasSpecialties::class);
+    }
 }

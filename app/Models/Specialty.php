@@ -13,4 +13,10 @@ class Specialty extends Model
     protected $fillable = [
         'name'
     ];
+    public function diseasesspecialties(){
+        return $this->belongsToMany(DiseasesHasSpecialties::class);
+    }
+    public function servicesspecialties(){
+        return $this->belongsToMany(ServicesHasSpecialties::class);
+    }
 }

@@ -13,4 +13,8 @@ class Disease extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function diseasesspecialties(){
+        return $this->belongsToMany(DiseasesHasSpecialties::class);
+    }
 }
