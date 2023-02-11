@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SymptomsSeeder::class);
         $this->call(OrgansSeeder::class);
         //SEEDER DE CATALOGOS MUCHOS A MUCHOS
-        //$this->call(DiseasesHasSpecialtiesSeeder::class);
-        //$this->call(ServicesHasSpecialtiesSeeder::class);
+        $this->call(DiseasesHasSpecialtiesSeeder::class);
+        $this->call(ServicesHasSpecialtiesSeeder::class);
     }
 }

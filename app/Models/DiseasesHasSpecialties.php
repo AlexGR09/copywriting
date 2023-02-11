@@ -15,12 +15,12 @@ class DiseasesHasSpecialties extends Model
         'specialty_id'
     ];
 
-    /* public function diseases()
+    public function diseases()
     {
         return $this->belongsToMany(Disease::class);
     }
     public function specialties()
     {
         return $this->belongsToMany(Specialty::class);
-    } */
+    }
 }

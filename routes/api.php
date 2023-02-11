@@ -99,4 +99,18 @@ Route::prefix('/catalogues')->group(function () {
         Route::put('/thematic/{id}', 'update');
         Route::delete('/thematic/{id}', 'destroy');
     });
+    //RUTAS PARA EL CATALOGO DE SERVICIOS
+    Route::controller($this->catalogs . ServiceController::class)->group(function () {
+        Route::get('/services', 'index');
+        Route::post('/service', 'store');
+        Route::put('/service/{id}', 'update');
+        Route::delete('/service/{id}', 'destroy');
+    });
+    Route::controller($this->catalogs . DiseasesSpecialtiesController::class)->group(function () {
+        Route::get('/diseases-specialties', 'index');
+        /* Route::post('/service', 'store');
+        Route::put('/service/{id}', 'update');
+        Route::delete('/service/{id}', 'destroy'); */
+    });
+
 });
