@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('hashtag');
             $table->string('img');
             $table->enum('status',['Aprovado','No aprovado']);
+            $table->longText('notes');
             $table->foreignId('target_id')->constrained('targets');
             $table->foreignId('thematic_id')->constrained('thematics');
             $table->foreignId('category_id')->constrained('categories');

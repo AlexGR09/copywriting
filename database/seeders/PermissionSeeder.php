@@ -22,22 +22,20 @@ class PermissionSeeder extends Seeder
             ['name' => 'update roles', 'guard_name' => 'jwt'],
             ['name' => 'delete roles', 'guard_name' => 'jwt'],
 
-            //CRUD ADMINISTRATION
             ['name' => 'create user', 'guard_name' => 'jwt'],
             ['name' => 'show user', 'guard_name' => 'jwt'],
             ['name' => 'update user', 'guard_name' => 'jwt'],
             ['name' => 'delete user', 'guard_name' => 'jwt'],
-            //CRUD TEAM
             ['name' => 'create team', 'guard_name' => 'jwt'],
             ['name' => 'show team', 'guard_name' => 'jwt'],
             ['name' => 'update team', 'guard_name' => 'jwt'],
             ['name' => 'delete team', 'guard_name' => 'jwt'],
-
-            //Writer
             ['name' => 'create text', 'guard_name' => 'jwt'],
             ['name' => 'show text', 'guard_name' => 'jwt'],
             ['name' => 'update text', 'guard_name' => 'jwt'],
             ['name' => 'delete text', 'guard_name' => 'jwt'],
+            ['name' => 'qualify texts', 'guard_name' => 'jwt'],
+            ['name' => 'create texts note', 'guard_name' => 'jwt'],
         ]);
     }
 }

@@ -18,6 +18,7 @@ class Text extends Model
         'hashtag',
         'img',
         'status',
+        'notes',
         'target_id',
         'thematic_id',
         'category_id',

@@ -27,6 +27,10 @@ class RoleSeeder extends Seeder
                 'guard_name' => 'jwt',
             ],
             [
+                'name' => 'Root Writer',
+                'guard_name' => 'jwt',
+            ],
+            [
                 'name' => 'Writer',
                 'guard_name' => 'jwt',
             ],
@@ -39,7 +43,11 @@ class RoleSeeder extends Seeder
 
         //USUARIO ROOT
         Role::findByName('Root')->givePermissionTo(Permission::all());
-
+        //ROOT WRITER
+        Role::findByName('Root Writer')->givePermissionTo([
+            'qualify texts',
+            'create texts note'
+        ]);
         //ADMINISTRADOR
         Role::findByName('Administrator')->givePermissionTo([
             'create user',
