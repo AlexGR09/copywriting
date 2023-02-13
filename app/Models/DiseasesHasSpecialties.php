@@ -17,10 +17,10 @@ class DiseasesHasSpecialties extends Model
 
     public function diseases()
     {
-        return $this->hasMany(Disease::class);
+        return $this->hasMany(Disease::class,'id','disease_id');
     }
     public function specialties()
     {
-        return $this->belongsToMany(Specialty::class);
+        return $this->hasMany(Specialty::class,'id','specialty_id');
     }
 }

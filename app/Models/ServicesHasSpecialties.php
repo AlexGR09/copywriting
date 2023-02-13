@@ -15,10 +15,10 @@ class ServicesHasSpecialties extends Model
     ];
     public function services()
     {
-        return $this->belongsToMany(Service::class);
+        return $this->hasMany(Service::class,'id','service_id');
     }
     public function specialties()
     {
-        return $this->belongsToMany(Specialty::class);
+        return $this->hasMany(Specialty::class,'id','specialty_id');
     }
 }

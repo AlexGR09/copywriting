@@ -43,13 +43,13 @@ class ServiceSpecialtyController extends Controller
     {
         try {
             DB::beginTransaction();
-            $diseaseSpecialty = ServicesHasSpecialties::where('id', $id)->firstorFail();
-            $diseaseSpecialty->update([
+            $serviceSpecialty = ServicesHasSpecialties::where('id', $id)->first();
+            $serviceSpecialty->update([
                 'service_id' => $request->service_id,
                 'specialty_id' => $request->specialty_id
             ]);
             DB::commit();
-            return (new ServiceSpecialtyResource($diseaseSpecialty))->additional(['message' => 'Especialidad y enfermedad actualizada correctamente']);
+            return (new ServiceSpecialtyResource($serviceSpecialty))->additional(['message' => 'Especialidad y enfermedad actualizada correctamente']);
         } catch (\Throwable $th) {
             DB::rollback();
             return response()->json(['error' => $th->getMessage()], 503);

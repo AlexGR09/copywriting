@@ -19,7 +19,9 @@ class DiseaseSpecialtyResource extends JsonResource
         return [
             'id' => $this->id,
             'disease_id' => $this->disease_id,
+            'disease_name' => DiseaseResource::collection($this->diseases),
             'specialty_id' => $this->specialty_id,
+            'specialty_name' => SpecialtyResource::collection($this->specialties)
         ];
     }
 }

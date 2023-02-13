@@ -14,7 +14,7 @@ class Specialty extends Model
         'name'
     ];
     public function diseasesspecialties(){
-        return $this->belongsToMany(DiseasesHasSpecialties::class);
+        return $this->hasMany(DiseasesHasSpecialties::class);
     }
     public function servicesspecialties(){
         return $this->belongsToMany(ServicesHasSpecialties::class);
