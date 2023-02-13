@@ -15,11 +15,11 @@ class DoctorsHasSpecialties extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->hasMany(Doctor::class,'id','doctor_id');
     }
 
     public function specialty()
     {
-        return $this->belongsTo(Specialty::class);
+        return $this->hasMany(Specialty::class,'id','specialty_id');
     }
 }

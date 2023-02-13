@@ -33,4 +33,8 @@ class Doctor extends Model
     {
         return $this->hasOne(Taxdata::class);
     }
+    public function doctorspecialties()
+    {
+        return $this->belongsToMany(DoctorsHasSpecialties::class);
+    }
 }
