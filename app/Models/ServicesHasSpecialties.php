@@ -10,7 +10,7 @@ class ServicesHasSpecialties extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'disease_id',
+        'service_id',
         'specialty_id'
     ];
     public function services()

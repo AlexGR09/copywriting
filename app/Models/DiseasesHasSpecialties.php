@@ -17,7 +17,7 @@ class DiseasesHasSpecialties extends Model
 
     public function diseases()
     {
-        return $this->belongsToMany(Disease::class);
+        return $this->hasMany(Disease::class);
     }
     public function specialties()
     {

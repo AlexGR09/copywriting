@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\API\V1\Catalogs\DiseaseSpecialty;
 
+use App\Http\Resources\API\V1\Catalogs\Disease\DiseaseResource;
+use App\Http\Resources\API\V1\Catalogs\Specialty\SpecialtyResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DiseaseSpecialtyResource extends JsonResource

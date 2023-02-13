@@ -108,9 +108,14 @@ Route::prefix('/catalogues')->group(function () {
     });
     Route::controller($this->catalogs . DiseasesSpecialtiesController::class)->group(function () {
         Route::get('/diseases-specialties', 'index');
-        /* Route::post('/service', 'store');
-        Route::put('/service/{id}', 'update');
-        Route::delete('/service/{id}', 'destroy'); */
+        Route::post('/disease-specialty', 'store');
+        Route::put('/disease-specialty/{id}', 'update');
+        Route::delete('/disease-specialty/{id}', 'destroy');
     });
-
+    Route::controller($this->catalogs . ServiceSpecialtyController::class)->group(function () {
+        Route::get('/services-specialties', 'index');
+        Route::post('/service-specialty', 'store');
+        Route::put('/service-specialty/{id}', 'update');
+        Route::delete('/service-specialty/{id}', 'destroy');
+    });
 });

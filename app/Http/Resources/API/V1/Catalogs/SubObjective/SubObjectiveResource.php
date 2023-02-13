@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\API\V1\Catalogs\SubObjective;
 
+use App\Http\Resources\API\V1\Catalogs\Objective\ObjectiveResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SubObjectiveResource extends JsonResource
@@ -18,6 +19,7 @@ class SubObjectiveResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'objective_id' => $this->objective_id,
+            'objetive' => new ObjectiveResource($this->objective)
         ];
     }
 }
