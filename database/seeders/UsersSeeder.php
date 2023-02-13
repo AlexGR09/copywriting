@@ -20,24 +20,28 @@ class UsersSeeder extends Seeder
         //USER ROOT
         $user->email = 'root@gsm.com';
         $user->password = 'password';
+        $user->job_position = 'Root';
         $user->save();
 
         //USER ADMINISTRATOR
         $user = new User();
         $user->email = 'administrator@gsm.com';
         $user->password = 'password';
+        $user->job_position = 'Administrator';
         $user->save();
 
         //USER WRITER
         $user = new User();
         $user->email = 'writer@gsm.com';
         $user->password = 'password';
+        $user->job_position = 'Writer';
         $user->save();
 
         //USER DESIGNER
         $user = new User();
         $user->email = 'designer@gsm.com';
         $user->password = 'password';
+        $user->job_position = 'Designer';
         $user->save();
 
         //ASIGNACION DE ROLES A LOS USUARIOS
