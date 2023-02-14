@@ -3,28 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Jetstream\Events\TeamCreated;
+use Laravel\Jetstream\Events\TeamDeleted;
+use Laravel\Jetstream\Events\TeamUpdated;
+use Laravel\Jetstream\Team as JetstreamTeam;
 
-class Team extends Model
+class Team extends JetstreamTeam
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $fillable = [
-        'writer_id',
-        'designer_id'
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'personal_team' => 'boolean',
     ];
 
-    public function writer()
-    {
-        return $this->belongsTo(Writer::class);
-    }
-    public function designer()
-    {
-        return $this->belongsTo(Designer::class);
-    }
-    public function doctors()
-    {
-        return $this->hasMany(Doctor::class);
-    }
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var string<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'personal_team',
+    ];
+
+    /**
+     * The event map for the model.
+     *
+     * @var array<string, class-string>
+     */
+    protected $dispatchesEvents = [
+        'created' => TeamCreated::class,
+        'updated' => TeamUpdated::class,
+        'deleted' => TeamDeleted::class,
+    ];
 }
