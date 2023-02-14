@@ -10,15 +10,14 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasProfilePhoto;
-    use HasTeams;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasApiTokens, HasRoles, HasFactory, HasProfilePhoto, HasTeams, TwoFactorAuthenticatable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +25,12 @@ class User extends Authenticatable
      * @var string<int, string>
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'last_name',
+        'last_name_second',
+        'email',
+        'password',
+        'job_position',
     ];
 
     /**
@@ -58,4 +62,28 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function writer()
+    {
+        return $this->hasOne(Writer::class);
+    }
+    public function designer()
+    {
+        return $this->hasOne(Designer::class);
+    }
 }
