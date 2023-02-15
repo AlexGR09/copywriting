@@ -2,10 +2,13 @@
 
 namespace App\Actions\Fortify;
 
+use App\Http\Requests\API\V1\Auth\RegisterRequest;
 use App\Models\Team;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
@@ -46,8 +49,24 @@ class CreateNewUser implements CreatesNewUsers
     {
         $user->ownedTeams()->save(Team::forceCreate([
             'user_id' => $user->id,
-            'name' => explode(' ', $user->name, 2)[0]."'s Team",
+            'name' => explode(' ', $user->name, 2)[0] . "'s Team Guisa Salud",
             'personal_team' => true,
         ]));
+    }
+
+    public function createUser(RegisterRequest $request)
+    {
+        $newUser = User::create($request->validated());
+        $this->createTeam($newUser);
+        $token = Auth::login($newUser);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User created successfully',
+            'user' => $newUser,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
     }
 }

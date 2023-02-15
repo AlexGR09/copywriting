@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\API\V1\Auth\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -18,113 +19,122 @@ use Illuminate\Support\Facades\Route;
 global $catalog;
 
 $this->catalogs = 'App\\Http\\Controllers\\API\\V1\\Catalogs\\';
+$this->newUser = 'App\\Actions\\Fortify\\';
+Route::middleware('auth:jwt')->get('/user', function (Request $request) {
+});
 
-/* Route::middleware('auth:jwt')->get('/user', function (Request $request) {
-    return $request->user();
-}); */
-
+Route::prefix('GSM')->group(function () {
+    Route::group(['middleware' => ['auth:jwt']], function () {
+        Route::prefix('/catalogues')->group(function () {
+            //RUTAS PARA EL CATALOGO DE PAISES
+            Route::controller($this->catalogs . CountryController::class)->group(function () {
+                Route::get('/countries', 'index');
+                Route::post('/country', 'store');
+                Route::put('/country/{id}', 'update');
+                Route::delete('/country/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATAOLOGO DE ESTADOS
+            Route::controller($this->catalogs . StateController::class)->group(function () {
+                Route::get('/states', 'index');
+                Route::post('/state', 'store');
+                Route::put('/state/{id}', 'update');
+                Route::delete('/state/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE CIUDADES
+            Route::controller($this->catalogs . CityController::class)->group(function () {
+                Route::get('/cities', 'index');
+                Route::post('/city', 'store');
+                Route::put('/city/{id}', 'update');
+                Route::delete('/city/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE ORGANOS
+            Route::controller($this->catalogs . OrganController::class)->group(function () {
+                Route::get('/organs', 'index');
+                Route::post('/organ', 'store');
+                Route::put('/organ/{id}', 'update');
+                Route::delete('/organ/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE ENFERMEDADES
+            Route::controller($this->catalogs . DiseaseController::class)->group(function () {
+                Route::get('/diseases', 'index');
+                Route::post('/disease', 'store');
+                Route::put('/disease/{id}', 'update');
+                Route::delete('/disease/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE OBJETIVOS
+            Route::controller($this->catalogs . ObjectiveController::class)->group(function () {
+                Route::get('/objects', 'index');
+                Route::post('/object', 'store');
+                Route::put('/object/{id}', 'update');
+                Route::delete('/object/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE ESPECIALIDADES
+            Route::controller($this->catalogs . SpecialtyController::class)->group(function () {
+                Route::get('/specialties', 'index');
+                Route::post('/specialty', 'store');
+                Route::put('/specialty/{id}', 'update');
+                Route::delete('/specialty/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE SUBOBJETIVOS
+            Route::controller($this->catalogs . SubObjetiveController::class)->group(function () {
+                Route::get('/sub-objetives', 'index');
+                Route::post('/sub-objetive', 'store');
+                Route::put('/sub-objetive/{id}', 'update');
+                Route::delete('/sub-objetive/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE SINTOMAS
+            Route::controller($this->catalogs . SymptomController::class)->group(function () {
+                Route::get('/symptoms', 'index');
+                Route::post('/symptom', 'store');
+                Route::put('/symptom/{id}', 'update');
+                Route::delete('/symptom/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE TARGET
+            Route::controller($this->catalogs . TargetController::class)->group(function () {
+                Route::get('/targets', 'index');
+                Route::post('/target', 'store');
+                Route::put('/target/{id}', 'update');
+                Route::delete('/target/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE TEMATICAS
+            Route::controller($this->catalogs . ThematicController::class)->group(function () {
+                Route::get('/thematics', 'index');
+                Route::post('/thematic', 'store');
+                Route::put('/thematic/{id}', 'update');
+                Route::delete('/thematic/{id}', 'destroy');
+            });
+            //RUTAS PARA EL CATALOGO DE SERVICIOS
+            Route::controller($this->catalogs . ServiceController::class)->group(function () {
+                Route::get('/services', 'index');
+                Route::post('/service', 'store');
+                Route::put('/service/{id}', 'update');
+                Route::delete('/service/{id}', 'destroy');
+            });
+            //RUTA PARA LOS CATALOGOS DE ENFERMEDADES POR ESPECIALIDAD
+            Route::controller($this->catalogs . DiseasesSpecialtiesController::class)->group(function () {
+                Route::get('/diseases-specialties', 'index');
+                Route::post('/disease-specialty', 'store');
+                Route::put('/disease-specialty/{id}', 'update');
+                Route::delete('/disease-specialty/{id}', 'destroy');
+            });
+            //RUTA PARA LOS CATALOGOS DE SERVICIOS POR ESPECIALIDAD
+            Route::controller($this->catalogs . ServiceSpecialtyController::class)->group(function () {
+                Route::get('/services-specialties', 'index');
+                Route::post('/service-specialty', 'store');
+                Route::put('/service-specialty/{id}', 'update');
+                Route::delete('/service-specialty/{id}', 'destroy');
+            });
+        });
+    });
+});
+//rutas para auth jwt
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
-
-Route::prefix('/catalogues')->group(function () {
-    //RUTAS PARA EL CATALOGO DE PAISES
-    Route::controller($this->catalogs . CountryController::class)->group(function () {
-        Route::get('/countries', 'index');
-        Route::post('/country', 'store');
-        Route::put('/country/{id}', 'update');
-        Route::delete('/country/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATAOLOGO DE ESTADOS
-    Route::controller($this->catalogs . StateController::class)->group(function () {
-        Route::get('/states', 'index');
-        Route::post('/state', 'store');
-        Route::put('/state/{id}', 'update');
-        Route::delete('/state/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE CIUDADES
-    Route::controller($this->catalogs . CityController::class)->group(function () {
-        Route::get('/cities', 'index');
-        Route::post('/city', 'store');
-        Route::put('/city/{id}', 'update');
-        Route::delete('/city/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE ORGANOS
-    Route::controller($this->catalogs . OrganController::class)->group(function () {
-        Route::get('/organs', 'index');
-        Route::post('/organ', 'store');
-        Route::put('/organ/{id}', 'update');
-        Route::delete('/organ/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE ENFERMEDADES
-    Route::controller($this->catalogs . DiseaseController::class)->group(function () {
-        Route::get('/diseases', 'index');
-        Route::post('/disease', 'store');
-        Route::put('/disease/{id}', 'update');
-        Route::delete('/disease/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE OBJETIVOS
-    Route::controller($this->catalogs . ObjectiveController::class)->group(function () {
-        Route::get('/objects', 'index');
-        Route::post('/object', 'store');
-        Route::put('/object/{id}', 'update');
-        Route::delete('/object/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE ESPECIALIDADES
-    Route::controller($this->catalogs . SpecialtyController::class)->group(function () {
-        Route::get('/specialties', 'index');
-        Route::post('/specialty', 'store');
-        Route::put('/specialty/{id}', 'update');
-        Route::delete('/specialty/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE SUBOBJETIVOS
-    Route::controller($this->catalogs . SubObjetiveController::class)->group(function () {
-        Route::get('/sub-objetives', 'index');
-        Route::post('/sub-objetive', 'store');
-        Route::put('/sub-objetive/{id}', 'update');
-        Route::delete('/sub-objetive/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE SINTOMAS
-    Route::controller($this->catalogs . SymptomController::class)->group(function () {
-        Route::get('/symptoms', 'index');
-        Route::post('/symptom', 'store');
-        Route::put('/symptom/{id}', 'update');
-        Route::delete('/symptom/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE TARGET
-    Route::controller($this->catalogs . TargetController::class)->group(function () {
-        Route::get('/targets', 'index');
-        Route::post('/target', 'store');
-        Route::put('/target/{id}', 'update');
-        Route::delete('/target/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE TEMATICAS
-    Route::controller($this->catalogs . ThematicController::class)->group(function () {
-        Route::get('/thematics', 'index');
-        Route::post('/thematic', 'store');
-        Route::put('/thematic/{id}', 'update');
-        Route::delete('/thematic/{id}', 'destroy');
-    });
-    //RUTAS PARA EL CATALOGO DE SERVICIOS
-    Route::controller($this->catalogs . ServiceController::class)->group(function () {
-        Route::get('/services', 'index');
-        Route::post('/service', 'store');
-        Route::put('/service/{id}', 'update');
-        Route::delete('/service/{id}', 'destroy');
-    });
-    Route::controller($this->catalogs . DiseasesSpecialtiesController::class)->group(function () {
-        Route::get('/diseases-specialties', 'index');
-        Route::post('/disease-specialty', 'store');
-        Route::put('/disease-specialty/{id}', 'update');
-        Route::delete('/disease-specialty/{id}', 'destroy');
-    });
-    Route::controller($this->catalogs . ServiceSpecialtyController::class)->group(function () {
-        Route::get('/services-specialties', 'index');
-        Route::post('/service-specialty', 'store');
-        Route::put('/service-specialty/{id}', 'update');
-        Route::delete('/service-specialty/{id}', 'destroy');
-    });
+//ruta para registrar nuevos usuarios usando jetstream
+Route::controller($this->newUser . CreateNewUser::class)->group(function () {
+    Route::post('/newUser', 'createUser');
 });
